@@ -4,19 +4,25 @@ Extract data from Github API and sink it for external sources! The main objectiv
 
 Currently, the CLI menu has the following options:
 
-```bash
+```txt
 GithubAPI 0.1
 Usage: GithubAPI [repo|user] [options]
 
-  -s, --sink <value>      Destination type, by default its console
-  -c, --config <value>    Path for sink configuration, required depending on destination type
+  -s, --sink <value>       Destination type, by default its console
+  -f, --config-file <value>
+                           Path for sink configuration, required depending on destination type
 Command: repo [options]
 
-  -r, --repo <value>      Github repo's name
-  -u, --user <value>      Github user's name
+  -r, --repo <value>       Github repo's name
+  -u, --user <value>       Github user's name
 Command: user [options]
 
-  -u, --user <value>      Github user's name
+  -u, --user <value>       Github user's name
 ```
 
 For now, there is only Console sink implemented but soon it will be released a Sink for SQL databases using Doobie. So keep keep following to check out the news!
+
+## Sinks
+
+- Console
+- File
