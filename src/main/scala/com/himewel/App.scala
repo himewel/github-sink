@@ -12,13 +12,13 @@ object GithubApp extends App {
       val value = config.command match {
         case "user" => 
           val user = config.user.get
-          val sink = SinkMethod.getSinkExecutor[User](config.sink)
+          val sink = SinkMethod.getSinkExecutor[User](config.sink, config.configFile)
           sink(GithubAPI.getUser(user))
 
         case "repo" => 
           val user = config.user.get
           val repo = config.repo.get
-          val sink = SinkMethod.getSinkExecutor[Repo](config.sink)
+          val sink = SinkMethod.getSinkExecutor[Repo](config.sink, config.configFile)
           sink(GithubAPI.getRepo(user, repo))
 
         case _: String => 

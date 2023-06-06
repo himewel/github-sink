@@ -6,7 +6,7 @@ import com.himewel.sink._
 case class CLIConfig(
   command: String = "",
   sink: SinkMethod = Console(),
-  config: String = "",
+  configFile: Option[String] = None,
   repo: Option[String] = None,
   user: Option[String] = None,
 )
@@ -24,9 +24,9 @@ object CLIConfig {
         .action(
           (r, c) => c.copy(sink=SinkMethod.build(r)))
         .text("Destination type, by default its console"),
-      opt[String]('c', "config")
+      opt[String]('f', "config-file")
         .optional()
-        .action((r, c) => c.copy(config=r))
+        .action((r, c) => c.copy(configFile=Some(r)))
         .text("Path for sink configuration, required depending on destination type"),
       cmd("repo")
         .required()
