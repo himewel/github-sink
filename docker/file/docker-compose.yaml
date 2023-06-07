@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  github-sink:
+    build:
+      context: ../..
+      dockerfile: docker/base/Dockerfile
+    command: scala github-sink.jar user --user himewel --sink file --config-file docker/file/config.json
