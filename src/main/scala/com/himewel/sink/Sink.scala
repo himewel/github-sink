@@ -12,6 +12,8 @@ trait Sink[A] {
 }
 
 object Sink {
+  implicit val mongoSink: Sink[MongoDB] = new MongoSink()
+
   implicit val consoleSink: Sink[Console] = new Sink[Console] {
     def run[E: Encoder](value: E, config: Map[String, String]): Boolean = {
       println(value.asJson)
