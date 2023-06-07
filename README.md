@@ -26,3 +26,4 @@ For now, there is only Console sink implemented but soon it will be released a S
 
 - Console
 - File
+- MongoDB
