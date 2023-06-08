@@ -10,32 +10,35 @@ case class File() extends SinkMethod
 case class MongoDB() extends SinkMethod
 
 object SinkMethod {
-  def build(name: String): SinkMethod = 
+  def build(name: String): SinkMethod =
     name match {
       case "console" => Console()
-      case "file" => File()
-      case "mongo" => MongoDB()
+      case "file"    => File()
+      case "mongo"   => MongoDB()
       case _: String => Console()
     }
 
   def getConfig(configFile: Option[String]): Map[String, String] = {
     val jsonString = configFile match {
-      case None => ""
+      case None        => ""
       case Some(value) => Source.fromFile(value).mkString
     }
 
     decode[Map[String, String]](jsonString) match {
-      case Left(error) => Map[String, String]()
+      case Left(error)  => Map[String, String]()
       case Right(value) => value
     }
   }
 
-  def getSinkExecutor[A: Encoder](sinkMethod: SinkMethod, configFile: Option[String]): (Option[A]) => Try[Boolean] = {
+  def getSinkExecutor[A: Encoder](
+    sinkMethod: SinkMethod,
+    configFile: Option[String]
+  ): (Option[A]) => Try[Boolean] = {
     val config = getConfig(configFile)
-    (value) => 
+    (value) =>
       sinkMethod match {
         case Console() => Sink.send[A, Console](value, config)
-        case File() => Sink.send[A, File](value, config)
+        case File()    => Sink.send[A, File](value, config)
         case MongoDB() => Sink.send[A, MongoDB](value, config)
       }
   }

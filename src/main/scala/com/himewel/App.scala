@@ -10,18 +10,18 @@ object GithubApp extends App {
   OParser.parse(CLIConfig.argParser, args, CLIConfig()) match {
     case Some(config) =>
       val value = config.command match {
-        case "user" => 
+        case "user" =>
           val user = config.user.get
           val sink = SinkMethod.getSinkExecutor[User](config.sink, config.configFile)
           sink(GithubAPI.getUser(user))
 
-        case "repo" => 
+        case "repo" =>
           val user = config.user.get
           val repo = config.repo.get
           val sink = SinkMethod.getSinkExecutor[Repo](config.sink, config.configFile)
           sink(GithubAPI.getRepo(user, repo))
 
-        case _: String => 
+        case _: String =>
           println(OParser.usage(CLIConfig.argParser))
           System.exit(0)
           None

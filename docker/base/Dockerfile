@@ -23,4 +23,4 @@ RUN mkdir docker
 
 COPY ./docker docker
 
-CMD scala github-sink.jar user -u himewel
+CMD scala githubapi-sink-assembly-0.1.0-SNAPSHOT.jar user -u himewel
